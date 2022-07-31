@@ -1,0 +1,30 @@
+___Symbols:
+1 -> n // 1 for n
+1 -> 1 // 1 for 1
+
+___Base Classes:
+- MainPage
+- Area
+- News
+- Contact
+
+___Heirarchy of Classes:
+- MainPage | 1 -> n | Area
+- MainPage | 1 -> n | News
+- MainPage | 1 -> 1 | Contact
+
+--> API TESTS
+let r = new XMLHttpRequest(this.method, 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d985a0f646bb46a4ac8b0140b432371e')
+r.open('GET', 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d985a0f646bb46a4ac8b0140b432371e', true)
+r.send()
+r.onload = () => { 
+if(r.response.status == 200)
+	console.log(r.response)
+}
+
+ const url = 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey='
+    const key = 'd985a0f646bb46a4ac8b0140b432371e'
+
+!__Keys
+Default -> d985a0f646bb46a4ac8b0140b432371e
+30/07 -> f2b66cc557b2481db797989471d84d10    

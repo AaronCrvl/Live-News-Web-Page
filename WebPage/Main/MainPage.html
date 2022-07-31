@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Default Tags -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Main/Components/NavigationBar/CSS/MainNavigationBarCSS.css">
+    <link rel="stylesheet" href="../Main/Components/NewsBlock/CSS/NewsBlockCSS.css">
+    <link rel="stylesheet" href="../Main/MainCSS/MainPageCSS.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">        
+  </head>
+
+  <!-- Dev Scprits -->
+  <!--- Load Generical News Block -->
+  <script>
+    this.GetNews = function() {
+      //#region Request
+      this.request = new XMLHttpRequest('GET', 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=f2b66cc557b2481db797989471d84d10')
+      this.request.open('GET', 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=f2b66cc557b2481db797989471d84d10', true)
+      this.request.send()
+      //#endregion       
+      let JSONNewsBlocks = ''
+      let totalResults = 0
+      this.request.onload = () => {
+        if (this.request.status == 200) {
+          if (JSONNewsBlocks != undefined) {
+            JSONNewsBlocks = JSON.parse(this.request.response)
+            totalResults = JSONNewsBlocks.totalResults
+            console.log('Sucess on GetNews()')
+          } 
+          else {
+            console.log(`Error im method GetNews(): JSON undefined`)        
+          }
+        } 
+        else {
+          console.log(`Error on GetNews. Status: ${this.request.status} | Message ${this.request.response}`)
+          JSONNewsBlocks = undefined
+        }        
+
+        for (let i = 0; i < totalResults; i++) {
+          const NewsBlockPlacement = document.getElementById("NewsBlockPlacement")
+          const basicBlock = document.getElementsByClassName("BasicBlock")[i]          
+          const newsBlock = basicBlock.cloneNode(true)
+          NewsBlockPlacement.appendChild(newsBlock)
+          newsBlock.getElementsByTagName("h1")[0].innerHTML = JSONNewsBlocks.articles[i].title
+          newsBlock.getElementsByTagName("h2")[0].innerHTML = 'Source: ' + JSONNewsBlocks.articles[i].source.name
+          newsBlock.getElementsByTagName("h2")[1].innerHTML = 'Author: ' + JSONNewsBlocks.articles[i].author
+          newsBlock.getElementsByTagName("h3")[0].innerHTML = 'Publication Date: ' + JSONNewsBlocks.articles[i].publishedAt
+          newsBlock.getElementsByTagName("p")[0].innerHTML = '  ' + JSONNewsBlocks.articles[i].content
+          newsBlock.getElementsByTagName("a")[0].style.display = "flex"
+        }
+
+        HideDefaultCard()
+      }
+    }
+  </script>
+
+  <!--- Load US News Block -->
+  <script>
+    this.GetUsTopNews = function() {
+      //#region Request
+      this.request = new XMLHttpRequest('GET', 'https://newsapi.org/v2/top-headlines?country=us&apiKey=f2b66cc557b2481db797989471d84d10')
+      this.request.open('GET', 'https://newsapi.org/v2/top-headlines?country=us&apiKey=f2b66cc557b2481db797989471d84d10', true)
+      this.request.send()
+      //#endregion 
+      let JSONNewsBlocks = ''
+      let totalResults = 0
+      this.request.onload = () => {
+        if (this.request.status == 200) {
+          if (JSONNewsBlocks != undefined) {
+            JSONNewsBlocks = JSON.parse(this.request.response)
+            totalResults = JSONNewsBlocks.articles.length
+            console.log('Sucess on GetNews()')
+          } 
+          else {
+            console.log(`Error im method GetNews(): JSON undefined`)        
+          }
+        } 
+        else {
+          console.log(`Error on GetNews. Status: ${this.request.status} | Message ${this.request.response}`)
+          JSONNewsBlocks = undefined
+        } 
+        
+        const NewsBlockPlacement = document.getElementsByClassName("Placement")[0]
+        const NewNewsBlockPlecement = NewsBlockPlacement.cloneNode(true)                
+        const Blocks =  document.getElementsByClassName("Blocks")[0]
+        Blocks.appendChild(NewNewsBlockPlecement)
+
+        for (let i = 0; i < totalResults; i++) {     
+          document.getElementsByClassName("")     
+          const basicBlock = NewNewsBlockPlecement.getElementsByClassName("BasicBlock")[i]
+          const newsBlock = basicBlock.cloneNode(true)
+          NewNewsBlockPlecement.appendChild(newsBlock)
+          newsBlock.getElementsByTagName("h1")[0].innerHTML = JSONNewsBlocks.articles[i].title
+          newsBlock.getElementsByTagName("h2")[0].innerHTML = 'Source: ' + JSONNewsBlocks.articles[i].source.name
+          newsBlock.getElementsByTagName("h2")[1].innerHTML = 'Author: ' + JSONNewsBlocks.articles[i].author
+          newsBlock.getElementsByTagName("h3")[0].innerHTML = 'Publication Date: ' + JSONNewsBlocks.articles[i].publishedAt
+          newsBlock.getElementsByTagName("p")[0].innerHTML = '  ' + JSONNewsBlocks.articles[i].content
+          newsBlock.getElementsByTagName("a")[0].style.display = "table-cell"
+        }
+        
+        //Hide button because of screen overflow
+        document.getElementById("LoadNewsButton").style.display = "none"        
+      }
+    }
+  </script>
+
+  <!--- Hide Inconsistence -->
+  <script>      
+    const HideDefaultCard = () =>{
+      const BlocksBody = document.getElementsByClassName("Placement")[0]      
+      BlocksBody.getElementsByClassName("card")[0].style.display = "none"       
+   }      
+ </script>
+  
+  <!-- Body -->
+  <body id="body">    
+    <!-- Title  -->
+    <div id="Main">
+      <nav id="WebPageTitle" style="place-content: center;" class="navbar navbar-light bg-light">
+        <a id="Title" class="navbar-brand" href="#" style="font-size: 5rem">
+          <img src="https://th.bing.com/th/id/OIP.eBPFPUqa8U8Z9-S3xLzSUgHaI2?w=182&h=217&c=7&r=0&o=5&pid=1.7" width="120" height="110" class="d-inline-block align-top">
+           Now News
+        </a>
+      </nav>
+
+      <!-- Select Topic -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 1.5rem;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="textoNavbar">
+          <ul class="navbar-nav mr-auto" style="place-content: center; width: -webkit-fill-available;">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Sports <span class="sr-only">(Home Page)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Lifestyle</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Cars</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Science</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Food</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Celebrities</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Dev Notes</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Refresh News Button  -->
+    <div id="LoadNewsButton" class="d-grid gap-2">
+      <button id="LoadNewsButton" class="btn btn-primary" type="button" onclick="GetUsTopNews()">Add News</button>
+    </div>
+
+    <div class="Blocks">
+      <!-- News Blocks -->
+      <div id="NewsBlockPlacement" class="Placement" style="width: 18rem;">
+        <div class="BasicBlock">
+          <div class="card">
+            <div class="card-body">
+              <!-- Main Title  -->
+              <div class="card-title">
+                <h1 class="Title" style="font-size:1.8rem"></h1>
+              </div>
+              <div id="SourceInfo">
+                <!-- Source  -->
+                <h2 class="Source" style="font-size:1.2rem"></h2>
+                <!-- <div class="Limits" style="width: 50px;"></div> -->
+                <!-- Author  -->
+                <h2 class="Author" style="font-size:1.2rem"></h2>
+              </div>
+              <!-- Date  -->
+              <h3 class="Date" style="font-size:1.2rem"></h3>
+              <!-- Content  -->
+              <div class="card-text">
+                <p class="Content" style="font-size:1.3rem"></p>
+                <a id="OpenNewsButton" href="#" class="btn btn-primary" style="display: none;">Open News</a>
+              </div>
+            </div>
+          </div>
+          <script>
+            let NewsBlockPlacement = document.getElementById("NewsBlockPlacement")
+            NewsBlockPlacement.onload = GetNews()            
+            /* !_____________Automating the load and refresh process            
+              // setInterval(ExecGetNews = () => {
+              //   NewsBlockPlacement = document.getElementById("NewsBlockPlacement")
+              //   NewsBlockPlacement.onload = GetNews()
+              // }, 15000)      
+            */
+          </script>
+        </div>
+      </div>
+    </div>
+
+  </body>
+  <!-- Body -->  
+</html>
