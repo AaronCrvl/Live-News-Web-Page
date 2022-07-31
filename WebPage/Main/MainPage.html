@@ -49,9 +49,12 @@
           newsBlock.getElementsByTagName("h2")[1].innerHTML = 'Author: ' + JSONNewsBlocks.articles[i].author
           newsBlock.getElementsByTagName("h3")[0].innerHTML = 'Publication Date: ' + JSONNewsBlocks.articles[i].publishedAt
           newsBlock.getElementsByTagName("p")[0].innerHTML = '  ' + JSONNewsBlocks.articles[i].content
-          newsBlock.getElementsByTagName("a")[0].style.display = "flex"
-        }
-
+          newsBlock.getElementsByTagName("a")[0].style.display = "table-cell"
+          newsBlock.getElementsByTagName("a")[0].href = JSONNewsBlocks.articles[i].url
+          newsBlock.getElementsByTagName("img")[0].setAttribute("src", JSONNewsBlocks.articles[i].urlToImage)
+        }        
+        
+        //document.querySelector("#MainSource").innerHTML = JSONNewsBlocks.articles[0].source.name
         HideDefaultCard()
       }
     }
@@ -99,8 +102,11 @@
           newsBlock.getElementsByTagName("h3")[0].innerHTML = 'Publication Date: ' + JSONNewsBlocks.articles[i].publishedAt
           newsBlock.getElementsByTagName("p")[0].innerHTML = '  ' + JSONNewsBlocks.articles[i].content
           newsBlock.getElementsByTagName("a")[0].style.display = "table-cell"
-        }
+          newsBlock.getElementsByTagName("a")[0].href = JSONNewsBlocks.articles[i].url
+          newsBlock.getElementsByTagName("img")[0].setAttribute("src", JSONNewsBlocks.articles[i].urlToImage)
+        }        
         
+        //document.querySelector("#MainSource").innerHTML = JSONNewsBlocks.articles[0].source.name        
         //Hide button because of screen overflow
         document.getElementById("LoadNewsButton").style.display = "none"        
       }
@@ -114,24 +120,30 @@
       BlocksBody.getElementsByClassName("card")[0].style.display = "none"       
    }      
  </script>
+ 
+  <!--- Basic Alert -->
+ <script>   
+ </script>
   
   <!-- Body -->
   <body id="body">    
     <!-- Title  -->
     <div id="Main">
-      <nav id="WebPageTitle" style="place-content: center;" class="navbar navbar-light bg-light">
+      <nav id="WebPageTitle" style="place-content: center;" class="navbar navbar-dark bg-dark">
         <a id="Title" class="navbar-brand" href="#" style="font-size: 5rem">
-          <img src="https://th.bing.com/th/id/OIP.eBPFPUqa8U8Z9-S3xLzSUgHaI2?w=182&h=217&c=7&r=0&o=5&pid=1.7" width="120" height="110" class="d-inline-block align-top">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/The_Red_logo_-_Red_Velvet.png" width="200" height="100" class="d-inline-block align-top">
            Now News
         </a>
+        <div id="liveAlertPlaceholder"></div>
+        <button type="button" class="btn btn-primary" id="liveAlertBtn">Live</button>
       </nav>
 
       <!-- Select Topic -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 1.5rem;">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 1.5rem; display: contents;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="textoNavbar">
+        <div id="textoNavbar" class="navbar navbar-dark bg-dark" >
           <ul class="navbar-nav mr-auto" style="place-content: center; width: -webkit-fill-available;">
             <li class="nav-item active">
               <a class="nav-link" href="#">Sports <span class="sr-only">(Home Page)</span>
@@ -164,16 +176,18 @@
     </div>
 
     <!-- Refresh News Button  -->
-    <div id="LoadNewsButton" class="d-grid gap-2">
+    <div id="" class="d-grid gap-2">
       <button id="LoadNewsButton" class="btn btn-primary" type="button" onclick="GetUsTopNews()">Add News</button>
-    </div>
+    </div>    
+    <!-- <div id="MainSource" style="height: 50px;"></div> -->
 
-    <div class="Blocks">
+    <ul class="Blocks" style="display: contents;">
       <!-- News Blocks -->
       <div id="NewsBlockPlacement" class="Placement" style="width: 18rem;">
-        <div class="BasicBlock">
+        <li class="BasicBlock">
           <div class="card">
             <div class="card-body">
+              <img class="card-img-top" width="400" height="400">
               <!-- Main Title  -->
               <div class="card-title">
                 <h1 class="Title" style="font-size:1.8rem"></h1>
@@ -190,7 +204,7 @@
               <!-- Content  -->
               <div class="card-text">
                 <p class="Content" style="font-size:1.3rem"></p>
-                <a id="OpenNewsButton" href="#" class="btn btn-primary" style="display: none;">Open News</a>
+                <a id="OpenNewsButton" href="#" class="btn btn-primary">Open News</a>
               </div>
             </div>
           </div>
@@ -205,8 +219,8 @@
             */
           </script>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
 
   </body>
   <!-- Body -->  

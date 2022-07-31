@@ -28,3 +28,28 @@ if(r.response.status == 200)
 !__Keys
 Default -> d985a0f646bb46a4ac8b0140b432371e
 30/07 -> f2b66cc557b2481db797989471d84d10    
+
+!_Animations
+#Test{
+    border-color: white;    
+    animation-name: Pulse;
+    animation-duration: 2s;        
+    animation-iteration-count: infinite;
+}
+@keyframes Pulse {
+    0% {
+      background-color: rgb(136, 81, 81);
+    }
+    25% {
+        background-color: rgb(180, 83, 83);
+      }
+    50% {
+        background-color: rgb(212, 63, 63);
+    }
+    75% {
+        background-color: rgb(228, 53, 53);
+      }
+    100% {
+        background-color: rgb(240, 33, 33);
+    }
+}
