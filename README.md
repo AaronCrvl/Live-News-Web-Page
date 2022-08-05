@@ -5,10 +5,10 @@ I've created this web page tah consumes an news API making a online magazine tha
 
 ```csharp
 // Default
-long apiKey = d985a0f646bb46a4ac8b0140b432371e;
+string apiKey = "d985a0f646bb46a4ac8b0140b432371e";
 
 // Created 30/07
-long apiKey2 = f2b66cc557b2481db797989471d84d10;
+string apiKey2 = "f2b66cc557b2481db797989471d84d10";
 ```
 
 ## !_Please Attention
