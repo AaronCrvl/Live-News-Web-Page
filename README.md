@@ -9,3 +9,7 @@ Default -> d985a0f646bb46a4ac8b0140b432371e
 ## !_Please Attention
 This is based on a use of an free API, that means that the call made in this APP were using the Live Server extension on Visual Studio, so the response of the API 
 dont turn out to be  other than statusCode == 200
+
+
+## Autor
+- [@AaronCrvl](https://www.github.com/AaronCrvl)
