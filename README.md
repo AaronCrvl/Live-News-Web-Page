@@ -1,5 +1,4 @@
 # Live-News-Web-Page
-I've created this web page tah consumes an news API making a online magazine that can refresh the news, create new news blocks and organize and bring them by topic.
 
 ## !_Keys
 
